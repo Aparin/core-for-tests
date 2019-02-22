@@ -2,8 +2,9 @@ import React from 'react';
 import './animate.css';
 import Question from './Question';
 
-const QuestionList = ({k, items, select}) => {
-  const elements = items.map((item, index) => {
+const QuestionList = ({k, items, select, questionListBool}) => {
+  if (questionListBool) {
+    const elements = items.map((item, index) => {
       return(
             <Question 
               key={'l' + k + index} 
@@ -13,8 +14,10 @@ const QuestionList = ({k, items, select}) => {
               select={select} // функция, меняет selected in state
             />  
       )}
-  );
-  return (<div>{elements}</div>);
+    );
+    return (<div>{elements}</div>);
+  }
+  return <span></span>;
 }
 
 export default QuestionList;

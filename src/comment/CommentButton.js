@@ -1,23 +1,22 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import './animate.css';
+import '../animate.css';
 
-const CheckButton = ({check, checkButtonBool}) => {
-  if (checkButtonBool) {
+const CommentButton = ({bool, next}) => {
+  if (bool) {
     return (
       <div className="animated fadeInLeft delay-2s">
         <Button 
           variant="contained" 
           color="primary" 
           style={{marginTop: '10px'}} 
-          onClick={check} >
-          Проверить
+          onClick={next} >
+          Следующий вопрос
         </Button>
       </div>
     )
   }
   return <span></span>
-  
 }
 
-export default CheckButton;
+export default CommentButton;

@@ -3,17 +3,28 @@ import './animate.css';
 import questions from './questions';
 import QuestionList from './QuestionList';
 import CheckButton from './CheckButton';
+import Popup from './Popup';
+import Comment from './comment/Comment';
+import CommentButton from './comment/CommentButton';
+import QuestionTitle from './QuestionTitle';
 
 class App extends Component {
   state = {
     questionNumber: 1,
     result: 0,
     selected: 0,
+    questionTitleBool: true,
+    questionListBool: true,
+    checkButtonBool: true,
+    popup: false,
+    comment: false,
+    commentButton: false,
   }
   render() {
     const select = numb => {
       this.setState({ selected: numb})
     }
+    const trueAnswer = questions[this.state.questionNumber][4];
 
     const questionNumber = this.state.questionNumber;
     const k = questionNumber;
@@ -25,18 +36,36 @@ class App extends Component {
       }  
       return arr;
     });
-
+    
     const check = () => {
-      
-    }
+      const answer = this.state.selected; 
+      if(answer === 0) {
+        return this.setState({popup: true});
+      }
+
+      if (answer === trueAnswer) {
+        console.log('true');
+      } else {
+        console.log('false');
+      }
+    };
+
     return (
       <div className="App">
-        <h2 className="animated fadeInLeft" key={questionNumber}>
-            {questions[questionNumber][0]}
-        </h2>
-        <QuestionList k={k} items={items()} select={select} />
-        <CheckButton check={check} />
-
+        <QuestionTitle 
+          key={questionNumber} 
+          msg={questions[questionNumber][0]} 
+          bool={this.state.questionTitleBool}
+        />
+        <QuestionList 
+          k={k} 
+          items={items()} 
+          select={select} 
+          questionListBool={this.state.questionListBool} 
+        />
+        <CheckButton check={check} checkButtonBool={this.state.checkButtonBool} />
+        <Popup bool={this.state.popup} />
+        
 
       </div>
     );
