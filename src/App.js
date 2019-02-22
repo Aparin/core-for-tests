@@ -7,6 +7,7 @@ import Popup from './Popup';
 import Comment from './comment/Comment';
 import CommentButton from './comment/CommentButton';
 import QuestionTitle from './QuestionTitle';
+import ResultMessage from './ResultMessage';
 
 class App extends Component {
   state = {
@@ -16,15 +17,15 @@ class App extends Component {
     questionTitleBool: true,
     questionListBool: true,
     checkButtonBool: true,
+    commentBool: false,
+    commentButtonBool: false,
+    resultBool: false,
     popup: false,
-    comment: false,
-    commentButton: false,
   }
   render() {
     const select = numb => {
       this.setState({ selected: numb})
     }
-    const trueAnswer = questions[this.state.questionNumber][4];
     const questionNumber = this.state.questionNumber;
 
     const items = (() => {
@@ -41,12 +42,45 @@ class App extends Component {
         return this.setState({popup: true});
       }
 
+      const trueAnswer = questions[this.state.questionNumber][4];
+      this.setState({selected: 0});
+
       if (answer === trueAnswer) {
-        console.log('true');
+        this.setState({
+          result: this.state.result + 1,
+        });
       } else {
         console.log('false');
       }
+      this.setState({
+        questionListBool: false,
+        checkButtonBool: false,
+        commentBool: true,
+        commentButtonBool: true,
+      })
     };
+
+    const next = () => {
+      // провера на конец массива, или изменения стейта номер вопроса
+      if (this.state.questionNumber < questions.length - 1) { // первый элемент массива содежит количество вариантов ответа
+        this.setState({
+          questionNumber: this.state.questionNumber + 1,
+          questionListBool: true,
+          checkButtonBool: true,
+          commentBool: false,
+          commentButtonBool: false,
+        });
+      } else {
+        this.setState({
+          questionTitleBool: false,
+          questionListBool: false,
+          checkButtonBool: false,
+          commentBool: false,
+          commentButtonBool: false,
+          resultBool: true,
+        })
+      }
+    }
 
     return (
       <div className="App">
@@ -67,10 +101,20 @@ class App extends Component {
         <Popup bool={this.state.popup} />
 
         <Comment 
-          bool={this.state.comment} 
+          bool={this.state.commentBool} 
           msg={questions[this.state.questionNumber][5]} 
         />
         
+        <CommentButton 
+          bool={this.state.commentButtonBool}
+          next={next} 
+        />
+        
+        <ResultMessage 
+          bool={this.state.resultBool}
+          result={this.state.result}
+          number={this.state.questionNumber}
+        />
 
       </div>
     );

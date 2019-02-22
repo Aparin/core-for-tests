@@ -11,7 +11,7 @@ const CommentButton = ({bool, next}) => {
           color="primary" 
           style={{marginTop: '10px'}} 
           onClick={next} >
-          Следующий вопрос
+          Далее
         </Button>
       </div>
     )
