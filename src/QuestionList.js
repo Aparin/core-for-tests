@@ -2,8 +2,8 @@ import React from 'react';
 import './animate.css';
 import Question from './Question';
 
-const QuestionList = ({k, items, select, questionListBool}) => {
-  if (questionListBool) {
+const QuestionList = ({k, items, select, bool}) => {
+  if (bool) {
     const elements = items.map((item, index) => {
       return(
             <Question 

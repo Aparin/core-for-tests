@@ -25,14 +25,12 @@ class App extends Component {
       this.setState({ selected: numb})
     }
     const trueAnswer = questions[this.state.questionNumber][4];
-
     const questionNumber = this.state.questionNumber;
-    const k = questionNumber;
 
     const items = (() => {
       let arr = [];
       for (let i = 1; i <= questions[0]; i++) { // questions[0] - количество вариантов ответа
-        arr.push(questions[k][i]);
+        arr.push(questions[questionNumber][i]);
       }  
       return arr;
     });
@@ -57,14 +55,21 @@ class App extends Component {
           msg={questions[questionNumber][0]} 
           bool={this.state.questionTitleBool}
         />
+
         <QuestionList 
-          k={k} 
+          k={questionNumber} 
           items={items()} 
           select={select} 
-          questionListBool={this.state.questionListBool} 
+          bool={this.state.questionListBool} 
         />
+
         <CheckButton check={check} checkButtonBool={this.state.checkButtonBool} />
         <Popup bool={this.state.popup} />
+
+        <Comment 
+          bool={this.state.comment} 
+          msg={questions[this.state.questionNumber][5]} 
+        />
         
 
       </div>
