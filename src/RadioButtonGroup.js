@@ -11,10 +11,10 @@ const styles = theme => ({
     display: 'flex',
   },
   formControl: {
-    margin: theme.spacing.unit * 3,
+    margin: theme.spacing.unit * 1,
   },
   group: {
-    margin: `${theme.spacing.unit}px 0`,
+    margin: `${theme.spacing.unit * 0.8}px 0`,
   },
 });
 
@@ -36,7 +36,7 @@ class RadioButtonsGroup extends React.Component {
             <RadioGroup
               aria-label="answers"
               name="answers"
-              className={classes.group}
+              className={classes.group + " animated fadeInLeft delay-1s"}
               value={this.state.value}
               onChange={this.handleChange}
             >
