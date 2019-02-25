@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import './animate.css';
-import questions from './questions';
-import QuestionList from './QuestionList';
 import CheckButton from './CheckButton';
 import Popup from './Popup';
 import Comment from './comment/Comment';
 import CommentButton from './comment/CommentButton';
 import QuestionTitle from './QuestionTitle';
 import ResultMessage from './ResultMessage';
+import RadioButtonGroup from './RadioButtonGroup';
 
 class App extends Component {
   state = {
@@ -22,19 +21,24 @@ class App extends Component {
     resultBool: false,
     popup: false,
   }
+  
+  componentDidMount() {
+    fetch('question.json')
+      .then((responce) => {return responce.text()})
+      .then((text) => {return JSON.parse(text)})
+      .then((array) => {this.setState({questions: array})})
+  }
+  
   render() {
+    if (this.state.questions === undefined) {
+      
+      return  <div>Вопросы теста загружаются</div>
+    } 
+    const questions = this.state.questions;
     const select = numb => {
       this.setState({ selected: numb})
     }
     const questionNumber = this.state.questionNumber;
-
-    const items = (() => {
-      let arr = [];
-      for (let i = 1; i <= questions[0]; i++) { // questions[0] - количество вариантов ответа
-        arr.push(questions[questionNumber][i]);
-      }  
-      return arr;
-    });
     
     const check = () => {
       const answer = this.state.selected; 
@@ -81,20 +85,20 @@ class App extends Component {
         })
       }
     }
-
-    return (
+    
+      return (
       <div className="App">
         <QuestionTitle 
           key={questionNumber} 
           msg={questions[questionNumber][0]} 
           bool={this.state.questionTitleBool}
         />
-
-        <QuestionList 
-          k={questionNumber} 
-          items={items()} 
-          select={select} 
-          bool={this.state.questionListBool} 
+       
+        <RadioButtonGroup 
+          answers={questions[questionNumber].slice(1,4)} 
+          key={"answers" + questionNumber}
+          bool={this.state.questionListBool}
+          select={select}
         />
 
         <CheckButton check={check} checkButtonBool={this.state.checkButtonBool} />
@@ -118,6 +122,8 @@ class App extends Component {
 
       </div>
     );
+    
+    
   }
 }
 
