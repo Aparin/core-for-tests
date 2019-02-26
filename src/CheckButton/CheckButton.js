@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import './animate.css';
+import '../animate.css';
 
-const CheckButton = ({check, checkButtonBool}) => {
-  if (checkButtonBool) {
+const CheckButton = ({check, bool}) => {
+  if (bool) {
     return (
       <div className="animated fadeInLeft delay-2s">
         <Button 

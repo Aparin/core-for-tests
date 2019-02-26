@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import './animate.css';
-import CheckButton from './CheckButton';
-import Popup from './Popup';
-import Comment from './comment/Comment';
-import CommentButton from './comment/CommentButton';
-import QuestionTitle from './QuestionTitle';
-import ResultMessage from './ResultMessage';
-import RadioButtonGroup from './RadioButtonGroup';
+import '../animate.css';
+import CheckButton from '../CheckButton/';
+import Popup from '../Popup/';
+import Comment from '../Comment/';
+import NextButton from '../NextButton/';
+import QuestionTitle from '../QuestionTitle/';
+import ResultMessage from '../ResultMessage/';
+import AnswerChoices from '../AnswerChoices/';
 
 class App extends Component {
   state = {
@@ -94,14 +94,14 @@ class App extends Component {
           bool={this.state.questionTitleBool}
         />
        
-        <RadioButtonGroup 
+        <AnswerChoices 
           answers={questions[questionNumber].slice(1,4)} 
           key={"answers" + questionNumber}
           bool={this.state.questionListBool}
           select={select}
         />
 
-        <CheckButton check={check} checkButtonBool={this.state.checkButtonBool} />
+        <CheckButton check={check} bool={this.state.checkButtonBool} />
         <Popup bool={this.state.popup} />
 
         <Comment 
@@ -109,7 +109,7 @@ class App extends Component {
           msg={questions[this.state.questionNumber][5]} 
         />
         
-        <CommentButton 
+        <NextButton 
           bool={this.state.commentButtonBool}
           next={next} 
         />

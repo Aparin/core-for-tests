@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 });
 
-class RadioButtonsGroup extends React.Component {
+class AnswerChoices extends React.Component {
   state = {
     value: 0,
   };
@@ -73,8 +73,8 @@ class RadioButtonsGroup extends React.Component {
   }
 }
 
-RadioButtonsGroup.propTypes = {
+AnswerChoices.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(RadioButtonsGroup);
+export default withStyles(styles)(AnswerChoices);
