@@ -7,6 +7,7 @@ import NextButton from '../NextButton/';
 import QuestionTitle from '../QuestionTitle/';
 import ResultMessage from '../ResultMessage/';
 import AnswerChoices from '../AnswerChoices/';
+import ErrorBoundary from '../ErrorBoundary';
 
 class App extends Component {
   state = {
@@ -87,41 +88,43 @@ class App extends Component {
     }
     
       return (
-      <div className="App">
-        <QuestionTitle 
-          key={questionNumber} 
-          msg={questions[questionNumber][0]} 
-          bool={this.state.questionTitleBool}
-        />
-       
-        <AnswerChoices 
-          answers={questions[questionNumber].slice(1,4)} 
-          key={"answers" + questionNumber}
-          bool={this.state.questionListBool}
-          select={select}
-        />
+        <ErrorBoundary>
+          <div className="App">
+            <QuestionTitle 
+              key={questionNumber} 
+              msg={questions[questionNumber][0]} 
+              bool={this.state.questionTitleBool}
+            />
+          
+            <AnswerChoices 
+              answers={questions[questionNumber].slice(1,4)} 
+              key={"answers" + questionNumber}
+              bool={this.state.questionListBool}
+              select={select}
+            />
 
-        <CheckButton check={check} bool={this.state.checkButtonBool} />
-        <Popup bool={this.state.popup} />
+            <CheckButton check={check} bool={this.state.checkButtonBool} />
+            <Popup bool={this.state.popup} />
 
-        <Comment 
-          bool={this.state.commentBool} 
-          msg={questions[this.state.questionNumber][5]} 
-        />
-        
-        <NextButton 
-          bool={this.state.commentButtonBool}
-          next={next} 
-        />
-        
-        <ResultMessage 
-          bool={this.state.resultBool}
-          result={this.state.result}
-          number={this.state.questionNumber}
-        />
+            <Comment 
+              bool={this.state.commentBool} 
+              msg={questions[this.state.questionNumber][5]} 
+            />
+            
+            <NextButton 
+              bool={this.state.commentButtonBool}
+              next={next} 
+            />
+            
+            <ResultMessage 
+              bool={this.state.resultBool}
+              result={this.state.result}
+              number={this.state.questionNumber}
+            />
 
-      </div>
-    );
+          </div>
+        </ErrorBoundary>
+      );
     
     
   }
