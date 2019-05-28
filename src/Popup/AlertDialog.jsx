@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -16,15 +17,16 @@ class AlertDialog extends React.Component {
   };
 
   render() {
+    const { open } = this.state;
     return (
       <div>
         <Dialog
-          open={this.state.open}
+          open={open}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Выберите один из вариантов"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">Выберите один из вариантов</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               Перед нажатием кнопки "Проверить", нужно выбрать один из вариантов ответа.
