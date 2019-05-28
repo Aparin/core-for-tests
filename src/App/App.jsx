@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import '../animate.css';
 import CheckButton from '../CheckButton';
@@ -11,22 +10,18 @@ import AnswerChoices from '../AnswerChoices';
 import ErrorBoundary from '../ErrorBoundary';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      questionNumber: 1,
-      result: 0,
-      selected: 0,
-      questionTitleBool: true,
-      questionListBool: true,
-      checkButtonBool: true,
-      commentBool: false,
-      commentButtonBool: false,
-      resultBool: false,
-      popup: false,
-    };
+  state = {
+    questionNumber: 1,
+    result: 0,
+    selected: 0,
+    questionTitleBool: true,
+    questionListBool: true,
+    checkButtonBool: true,
+    commentBool: false,
+    commentButtonBool: false,
+    resultBool: false,
+    popup: false,
   }
-
 
   componentDidMount() {
     fetch('question.json')
@@ -36,7 +31,19 @@ class App extends Component {
   }
 
   render() {
-    const { questions } = this.state;
+    const {
+      questions,
+      questionNumber,
+      selected,
+      result,
+      questionTitleBool,
+      questionListBool,
+      checkButtonBool,
+      popup,
+      commentBool,
+      commentButtonBool,
+      resultBool,
+    } = this.state;
     if (questions === undefined) {
       return <div>Вопросы теста загружаются</div>;
     }
@@ -44,19 +51,20 @@ class App extends Component {
     const select = (numb) => {
       this.setState({ selected: numb });
     };
-    const { questionNumber } = this.state;
+
 
     const check = () => {
-      const { answer } = this.state;
-      if (answer === 0) {
+      if (selected === 0) {
         return this.setState({ popup: true });
       }
 
       const trueAnswer = questions[questionNumber][4];
       this.setState({ selected: 0 });
 
-      if (answer === trueAnswer) {
-        this.setState(prev => ({ result: prev.result + 1 }));
+      if (selected === trueAnswer) {
+        this.setState({
+          result: result + 1,
+        });
       }
 
       this.setState({
@@ -72,13 +80,13 @@ class App extends Component {
       // провера на конец массива, или изменения стейта номер вопроса
       if (questionNumber < questions.length - 1) {
         // первый элемент массива содежит количество вариантов ответа
-        this.setState(prev => ({
-          questionNumber: prev.questionNumber + 1,
+        this.setState({
+          questionNumber: questionNumber + 1,
           questionListBool: true,
           checkButtonBool: true,
           commentBool: false,
           commentButtonBool: false,
-        }));
+        });
       } else {
         this.setState({
           questionTitleBool: false,
@@ -91,16 +99,6 @@ class App extends Component {
       }
     };
 
-    const {
-      questionTitleBool,
-      questionListBool,
-      checkButtonBool,
-      popup,
-      commentBool,
-      commentButtonBool,
-      resultBool,
-      result,
-    } = this.state;
     return (
       <ErrorBoundary>
         <div className="App">
