@@ -1,6 +1,7 @@
 {
     "name": "core-for-tests",
-    "version": "1.0.1",
+    "homepage": "https://efeto.ru/apps/core-for-tests/",
+    "version": "1.0.2",
     "private": true,
     "dependencies": {
         "@material-ui/core": "^3.9.2",
